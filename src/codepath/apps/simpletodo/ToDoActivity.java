@@ -2,9 +2,13 @@ package codepath.apps.simpletodo;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,15 +22,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ToDoActivity extends Activity
 {
     ArrayList<String> items;
-    ArrayAdapter<String> itemsAdapter;
+    MyIconArrayAdaptor itemsAdapter;
     ListView lvItems;
     // REQUEST_CODE can be any value we like, used to determine the result type
     // later
@@ -37,13 +39,14 @@ public class ToDoActivity extends Activity
     {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_todo);
-	lvItems = (ListView) findViewById(R.id.lvItems);
+	lvItems = (ListView) findViewById(R.id.lvItems);		
 	lvItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	
 	readItems();
-	itemsAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, items);
+	//itemsAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, items);
+	
+	itemsAdapter = new MyIconArrayAdaptor(ToDoActivity.this, items);
 	lvItems.setAdapter(itemsAdapter);
-//	items.add("First Item");
-//	items.add("Second Item");
 	setupListViewListener();
 
     }
@@ -69,10 +72,12 @@ public class ToDoActivity extends Activity
 	    @Override
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	    {
-
 		Intent editItemIntent = new Intent(ToDoActivity.this, EditItemActivity.class);
+		
 		// put "extras" into the bundle for access in the second activity
-		editItemIntent.putExtra("oldItemText", items.get(position)); 
+		String oldItemText = StringUtils.substringBefore(items.get(position), "Due");
+		editItemIntent.putExtra("oldItemText", oldItemText); 
+		
 		editItemIntent.putExtra("position", position);
 		startActivityForResult(editItemIntent, REQUEST_CODE); // brings	    up the	 second	activity
 	    }
@@ -83,7 +88,9 @@ public class ToDoActivity extends Activity
     public void addTodoItem(View v)
     {
 	EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-	itemsAdapter.add(etNewItem.getText().toString());
+	//itemsAdapter.add(etNewItem.getText().toString());
+	items.add(etNewItem.getText().toString());
+	itemsAdapter.notifyDataSetChanged();
 	etNewItem.setText("");
 	saveItems();
     }
@@ -127,11 +134,14 @@ public class ToDoActivity extends Activity
 	{
 	    // Extract value from result extras
 	    String newText = data.getExtras().getString("newItemText");
-	    int position = data.getExtras().getInt("position");
-
-	    items.set(position, newText);
+	    int position = data.getExtras().getInt("position");	    
+	    String dueDate = data.getExtras().getString("dueDate");
+	   	    
+	    items.set(position, newText+ "  Due Date[" + dueDate + "]");
 	    itemsAdapter.notifyDataSetChanged();
 	    saveItems();
+	  
+	   
 	}
     }
 

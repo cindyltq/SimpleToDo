@@ -5,7 +5,6 @@
 	android:layout_height="match_parent"
 	tools:context="codepath.apps.simpletodo.EditItemActivity"
 	tools:ignore="MergeRootFrame" >
-
     <TextView
         android:id="@+id/tvEditItem"
         android:layout_width="wrap_content"
@@ -15,22 +14,41 @@
         android:text="Edit Item Below:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <EditText
-        android:id="@+id/etItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvEditItem"
-        android:layout_below="@+id/tvEditItem"
-        android:layout_marginTop="86dp"
-        android:ems="10" >
+    	android:id="@+id/etItem"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignLeft="@+id/tvEditItem"
+    	android:layout_below="@+id/tvEditItem"
+    	android:layout_marginTop="10dp"
+    	android:ems="10" >
         <requestFocus />
     </EditText>
+    <DatePicker
+    	android:id="@+id/dpDueDate"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/etItem"
+    	android:layout_margin="10dp"
+    	android:layout_marginBottom="10dp"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:layout_marginTop="10dp" />
+    <TextView
+    	android:id="@+id/tvPickDueDate"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignLeft="@+id/dpDueDate"
+    	android:layout_alignTop="@+id/dpDueDate"
+    	android:text="Pick Due Date:"
+    	android:textAppearance="?android:attr/textAppearanceLarge" />
     <Button
-        android:id="@+id/btSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etItem"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="18dp"
-        android:onClick="saveEditedItem"
-        android:text="Save" />
+    	android:id="@+id/btSave"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@+id/dpDueDate"
+    	android:layout_centerHorizontal="true"
+    	android:layout_marginTop="19dp"
+    	android:onClick="saveEditedItem"
+    	android:text="Save" />
 </RelativeLayout>
