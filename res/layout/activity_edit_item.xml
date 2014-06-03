@@ -1,54 +1,54 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/container"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:layout_margin="5dp"
+	android:orientation="vertical"
 	tools:context="codepath.apps.simpletodo.EditItemActivity"
 	tools:ignore="MergeRootFrame" >
     <TextView
         android:id="@+id/tvEditItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="Edit Item Below:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textColor="@color/blue"     
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     <EditText
     	android:id="@+id/etItem"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:layout_alignLeft="@+id/tvEditItem"
-    	android:layout_below="@+id/tvEditItem"
-    	android:layout_marginTop="10dp"
-    	android:ems="10" >
+    	android:layout_marginTop="8dp"
+    	android:ems="15" >
         <requestFocus />
     </EditText>
-    <DatePicker
-    	android:id="@+id/dpDueDate"
+    <CheckBox
+    	android:id="@+id/cbDone"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:layout_alignParentLeft="true"
-    	android:layout_below="@+id/etItem"
-    	android:layout_margin="10dp"
-    	android:layout_marginBottom="10dp"
-    	android:layout_marginLeft="10dp"
-    	android:layout_marginRight="10dp"
-    	android:layout_marginTop="10dp" />
+    	android:checked="false"
+    	android:padding="10dp"
+    	android:text="Done"
+    	android:textColor="@color/blue"     
+    	android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
     	android:id="@+id/tvPickDueDate"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:layout_alignLeft="@+id/dpDueDate"
-    	android:layout_alignTop="@+id/dpDueDate"
     	android:text="Pick Due Date:"
-    	android:textAppearance="?android:attr/textAppearanceLarge" />
+    	android:textColor="@color/blue"       
+    	android:textAppearance="?android:attr/textAppearanceMedium" />
+    <DatePicker
+    	android:id="@+id/dpDueDate"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"/>
     <Button
     	android:id="@+id/btSave"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:layout_below="@+id/dpDueDate"
-    	android:layout_centerHorizontal="true"
-    	android:layout_marginTop="19dp"
+    	android:layout_gravity="center"
+    	android:layout_marginTop="10dp"
+    	android:gravity="center_vertical|center_horizontal"
     	android:onClick="saveEditedItem"
     	android:text="Save" />
-</RelativeLayout>
+</LinearLayout >

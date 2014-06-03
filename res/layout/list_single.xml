@@ -1,15 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:id="@+id/listItemContainer">
     <TableRow>
         <ImageView
-            android:id="@+id/img"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+        	android:id="@+id/ivIndicator"
+        	android:layout_width="20dp"
+        	android:layout_height="30dp"
+        	android:clickable="true"
+        	android:paddingBottom="2dp"
+        	android:paddingLeft="2dp"
+        	android:paddingRight="2dp"
+        	android:paddingTop="2dp" />
         <TextView
-            android:id="@+id/txt"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-</TableRow>
+            android:id="@+id/tvItemText"
+            android:layout_width="236dp"
+            android:layout_height="wrap_content" />
+       <ImageView
+         	android:id="@+id/ivCalendar"
+         	android:layout_width="20dp"
+         	android:layout_height="30dp"
+         	android:layout_gravity="right"
+         	android:clickable="true"
+         	android:paddingBottom="2dp"
+         	android:paddingTop="2dp" />
+        <TextView
+            android:id="@+id/tvDueDate"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:textColor="@color/blue"         
+            android:clickable="true"/>
+   </TableRow>
 </TableLayout>
+
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!--   android:orientation="horizontal" -->
+<!--   android:layout_width="match_parent" -->
+<!--   android:layout_height="match_parent"> -->
+<!--   <ImageView -->
+<!--   	android:id="@+id/img" -->
+<!--   	android:layout_width="20dp" -->
+<!--   	android:layout_height="20dp" -->
+<!--   	android:clickable="true" -->
+<!--   	android:minHeight="20dp" -->
+<!--   	android:minWidth="20dp" -->
+<!--   	android:padding="2dp" -->
+<!--   	android:scaleType="center" /> -->
+<!--   <TextView -->
+<!--     android:id="@+id/txt" -->
+<!--     android:layout_width="fill_parent" -->
+<!--     android:layout_height="wrap_content" -->
+<!--     android:layout_weight="1" -->
+<!--     android:gravity="left" /> -->
+<!--   <ImageView -->
+<!--     android:id="@+id/calendar" -->
+<!--     android:layout_width="20dp" -->
+<!--     android:layout_height="20dp" -->
+<!--     android:scaleType="center" -->
+<!--     android:clickable="true" /> -->
+<!-- </LinearLayout> -->

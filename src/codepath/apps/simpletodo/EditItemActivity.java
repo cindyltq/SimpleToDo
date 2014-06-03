@@ -2,7 +2,6 @@ package codepath.apps.simpletodo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +9,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditItemActivity extends ActionBarActivity
 {
@@ -20,20 +22,53 @@ public class EditItemActivity extends ActionBarActivity
     String dueDate;
     EditText editText;
     DatePicker datePicker;
+    CheckBox isDoneCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_edit_item);
-	setupDatePickerListener();
+
+	setupEditText();
 	
-	position = getIntent().getIntExtra("position",0);
-	editText = (EditText)findViewById(R.id.etItem);
+	setupCheckbox();
+	
+	setupDatePickerListener();
+
+	position = getIntent().getIntExtra("position", 0);
+	dueDate = getIntent().getStringExtra("oldDueDate");
+    }
+
+    public void setupEditText()
+    {
+	editText = (EditText) findViewById(R.id.etItem);
 	editText.setText(getIntent().getStringExtra("oldItemText"));
-	editText.requestFocus();
+	// editText.requestFocus();
     }
     
+    public void setupCheckbox()
+    {
+	isDoneCheck = (CheckBox) findViewById(R.id.cbDone);
+	String isDone = getIntent().getStringExtra("isDone");
+	if ("true".equals(isDone))
+	    isDoneCheck.setChecked(true);
+	else
+	    isDoneCheck.setChecked(false);
+
+	isDoneCheck.setOnClickListener(new OnClickListener()
+	{
+	    @Override
+	    public void onClick(View v)
+	    {
+		if (((CheckBox) v).isChecked())
+		{
+		}
+	    }
+	});
+
+    }
+
     public void setupDatePickerListener()
     {
 	final Calendar c = Calendar.getInstance();
@@ -42,37 +77,38 @@ public class EditItemActivity extends ActionBarActivity
 	int currentDay = c.get(Calendar.DAY_OF_MONTH);
 
 	datePicker = (DatePicker) findViewById(R.id.dpDueDate);
-	
-	datePicker.init(currentYear, currentMonth, currentDay, new OnDateChangedListener ()
+
+	datePicker.init(currentYear, currentMonth, currentDay, new OnDateChangedListener()
 	{
 	    @Override
 	    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-	    {		
+	    {
 		Calendar datePicked = Calendar.getInstance();
-		datePicked.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-		datePicked.set(Calendar.MONTH,monthOfYear); 
+		datePicked.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		datePicked.set(Calendar.MONTH, monthOfYear);
 		datePicked.set(Calendar.YEAR, year);
-		 
+
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		dueDate = sdf.format(datePicked.getTime());	
+		dueDate = sdf.format(datePicked.getTime());
 	    }
-	    
-	});	
+
+	});
     }
-    
+
     public void saveEditedItem(View v)
     {
-	  // Prepare data intent 
-	  Intent returnResultIntent = new Intent();
-	  
-	  // Pass relevant data back as a result
-	  returnResultIntent.putExtra("newItemText", editText.getText().toString());
-	  returnResultIntent.putExtra("position", position);	  
-	  returnResultIntent.putExtra("dueDate", dueDate);
-	  
-	  // Activity finished ok, return the data
-	  setResult(RESULT_OK, returnResultIntent); // set result code and bundle data for response
-	  finish(); // closes the activity, pass data to parent
+	// Prepare data intent
+	Intent returnResultIntent = new Intent();
+
+	// Pass relevant data back as a result
+	returnResultIntent.putExtra("newItemText", editText.getText().toString());
+	returnResultIntent.putExtra("position", position);
+	returnResultIntent.putExtra("dueDate", dueDate);
+	returnResultIntent.putExtra("isDone", isDoneCheck.isChecked());
+
+	// Activity finished ok, return the data
+	setResult(RESULT_OK, returnResultIntent); // set result code and bundle data for response
+	finish(); // closes the activity, pass data to parent
 
     }
 
